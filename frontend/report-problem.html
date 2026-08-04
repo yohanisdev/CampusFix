@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusFix — Report a Problem</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="student-dashboard.html" class="brand">🛠️ CampusFix</a>
+        <div class="user-info">
+            <span id="user-display">Student</span>
+            <a href="student-dashboard.html" style="color: #cbd5e1; text-decoration: none;">Dashboard</a>
+            <a href="my-reports.html" style="color: #cbd5e1; text-decoration: none;">My Reports</a>
+            <button onclick="logout()" class="btn-logout">Logout</button>
+        </div>
+    </nav>
+
+    <div class="container" style="max-width: 650px;">
+        <div class="card">
+            <h2 style="margin-bottom: 0.5rem;">Report a Campus Problem</h2>
+            <p style="color: #64748b; margin-bottom: 1.5rem; font-size: 0.95rem;">
+                Submit facility maintenance issues directly to administrators.
+            </p>
+
+            <div id="error-message" style="display: none; background-color: #fecaca; color: #991b1b; padding: 0.8rem; border-radius: 6px; margin-bottom: 1rem; font-size: 0.9rem;"></div>
+            <div id="success-message" style="display: none; background-color: #bbf7d0; color: #166534; padding: 0.8rem; border-radius: 6px; margin-bottom: 1rem; font-size: 0.9rem;"></div>
+
+            <form id="report-form">
+                <div class="form-group">
+                    <label for="title">Problem Title *</label>
+                    <input type="text" id="title" placeholder="e.g. Broken water pipe leaking on 2nd floor" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="category">Category *</label>
+                    <select id="category" required>
+                        <option value="">-- Select Category --</option>
+                        <option value="Electricity">Electricity</option>
+                        <option value="Water">Water</option>
+                        <option value="Internet / Wi-Fi">Internet / Wi-Fi</option>
+                        <option value="Classroom">Classroom</option>
+                        <option value="Dormitory">Dormitory</option>
+                        <option value="Road / Infrastructure">Road / Infrastructure</option>
+                        <option value="Sanitation">Sanitation</option>
+                        <option value="Furniture">Furniture</option>
+                        <option value="Security">Security</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="location">Location / Building / Room *</label>
+                    <input type="text" id="location" placeholder="e.g. Science Block B, Room 204" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="priority">Suggested Priority (Smart Default Applied)</label>
+                    <select id="priority">
+                        <option value="LOW">LOW</option>
+                        <option value="MEDIUM" selected>MEDIUM</option>
+                        <option value="HIGH">HIGH</option>
+                        <option value="CRITICAL">CRITICAL</option>
+                    </select>
+                    <small style="color: #64748b; display: block; margin-top: 0.3rem;">
+                        ⚡ System automatically suggests priority based on hazard severity.
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Detailed Description *</label>
+                    <textarea id="description" rows="4" placeholder="Provide extra details (e.g., severe leak causing slippery corridor)..." required></textarea>
+                </div>
+
+                <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                    <button type="submit" class="btn btn-primary" style="flex: 2;">Submit Report</button>
+                    <a href="student-dashboard.html" class="btn" style="background-color: #cbd5e1; color: #0f172a; flex: 1;">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/reports.js"></script>
+</body>
+</html>

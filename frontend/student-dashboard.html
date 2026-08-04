@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusFix — Student Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="student-dashboard.html" class="brand">🛠️ CampusFix</a>
+        <div class="user-info">
+            <span id="user-display">Student</span>
+            <a href="student-dashboard.html" style="color: #ffffff; font-weight: bold; text-decoration: none;">Dashboard</a>
+            <a href="my-reports.html" style="color: #cbd5e1; text-decoration: none;">My Reports</a>
+            <button onclick="logout()" class="btn-logout">Logout</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+            <div>
+                <h2>Welcome Back!</h2>
+                <p style="color: #64748b;">Track and manage your reported campus issues.</p>
+            </div>
+            <a href="report-problem.html" class="btn btn-primary">+ Report New Problem</a>
+        </div>
+
+        <!-- Stat Cards Grid -->
+        <div class="stats-grid">
+            <div class="stat-card" style="border-left-color: #2563eb;">
+                <h3>Total Reports</h3>
+                <div class="number" id="stat-total">0</div>
+            </div>
+            <div class="stat-card" style="border-left-color: #d97706;">
+                <h3>Pending</h3>
+                <div class="number" id="stat-pending">0</div>
+            </div>
+            <div class="stat-card" style="border-left-color: #1d4ed8;">
+                <h3>In Progress</h3>
+                <div class="number" id="stat-in-progress">0</div>
+            </div>
+            <div class="stat-card" style="border-left-color: #16a34a;">
+                <h3>Resolved</h3>
+                <div class="number" id="stat-resolved">0</div>
+            </div>
+        </div>
+
+        <!-- Recent Reports Card -->
+        <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <h3>Recent Submissions</h3>
+                <a href="my-reports.html" style="color: #2563eb; font-weight: 600; text-decoration: none;">View All →</a>
+            </div>
+
+            <div id="recent-reports-container">
+                <p style="color: #64748b;">Loading your reports...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/student.js"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusFix — Admin Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar" style="background-color: #1e293b; border-bottom: 3px solid #38bdf8;">
+        <a href="admin-dashboard.html" class="brand">🛠️ CampusFix <span style="font-size: 0.8rem; color: #ef4444; border: 1px solid #ef4444; padding: 0.1rem 0.4rem; border-radius: 4px; margin-left: 0.5rem;">ADMIN</span></a>
+        <div class="user-info">
+            <span id="user-display">Administrator</span>
+            <a href="admin-dashboard.html" style="color: #ffffff; font-weight: bold; text-decoration: none;">Overview</a>
+            <a href="admin-reports.html" style="color: #cbd5e1; text-decoration: none;">Manage Reports</a>
+            <button onclick="logout()" class="btn-logout">Logout</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div style="margin-bottom: 2rem;">
+            <h2>Facility Management Portal</h2>
+            <p style="color: #64748b;">Monitor campus issues, assign resources, and update resolution statuses.</p>
+        </div>
+
+        <!-- System Stat Cards -->
+        <div class="stats-grid">
+            <div class="stat-card" style="border-left-color: #2563eb;">
+                <h3>Total Reports</h3>
+                <div class="number" id="stat-total">0</div>
+            </div>
+            <div class="stat-card" style="border-left-color: #d97706;">
+                <h3>Pending Action</h3>
+                <div class="number" id="stat-pending">0</div>
+            </div>
+            <div class="stat-card" style="border-left-color: #1d4ed8;">
+                <h3>In Progress</h3>
+                <div class="number" id="stat-in-progress">0</div>
+            </div>
+            <div class="stat-card" style="border-left-color: #16a34a;">
+                <h3>Resolved</h3>
+                <div class="number" id="stat-resolved">0</div>
+            </div>
+            <div class="stat-card" style="border-left-color: #dc2626;">
+                <h3>Critical Hazard</h3>
+                <div class="number" id="stat-critical">0</div>
+            </div>
+        </div>
+
+        <!-- High Priority Queue -->
+        <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <h3>🚨 Urgent & High Priority Queue</h3>
+                <a href="admin-reports.html" style="color: #2563eb; font-weight: 600; text-decoration: none;">View All Reports →</a>
+            </div>
+
+            <div id="urgent-reports-container">
+                <p style="color: #64748b;">Loading urgent reports...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

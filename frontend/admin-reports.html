@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusFix — Manage All Reports</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar" style="background-color: #1e293b; border-bottom: 3px solid #38bdf8;">
+        <a href="admin-dashboard.html" class="brand">🛠️ CampusFix <span style="font-size: 0.8rem; color: #ef4444; border: 1px solid #ef4444; padding: 0.1rem 0.4rem; border-radius: 4px; margin-left: 0.5rem;">ADMIN</span></a>
+        <div class="user-info">
+            <span id="user-display">Administrator</span>
+            <a href="admin-dashboard.html" style="color: #cbd5e1; text-decoration: none;">Overview</a>
+            <a href="admin-reports.html" style="color: #ffffff; font-weight: bold; text-decoration: none;">Manage Reports</a>
+            <button onclick="logout()" class="btn-logout">Logout</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div style="margin-bottom: 1.5rem;">
+            <h2>All Campus Reports Management</h2>
+        </div>
+
+        <!-- Filter Controls -->
+        <div class="card" style="padding: 1rem; margin-bottom: 1.5rem;">
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                <input type="text" id="search-input" placeholder="Search by title, student name, or location..." style="flex: 2; padding: 0.6rem; border: 1px solid #cbd5e1; border-radius: 6px;">
+                
+                <select id="filter-status" style="flex: 1; padding: 0.6rem; border: 1px solid #cbd5e1; border-radius: 6px;">
+                    <option value="ALL">All Statuses</option>
+                    <option value="PENDING">Pending</option>
+                    <option value="IN_PROGRESS">In Progress</option>
+                    <option value="RESOLVED">Resolved</option>
+                    <option value="REJECTED">Rejected</option>
+                </select>
+
+                <select id="filter-priority" style="flex: 1; padding: 0.6rem; border: 1px solid #cbd5e1; border-radius: 6px;">
+                    <option value="ALL">All Priorities</option>
+                    <option value="CRITICAL">Critical</option>
+                    <option value="HIGH">High</option>
+                    <option value="MEDIUM">Medium</option>
+                    <option value="LOW">Low</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="card">
+            <div id="admin-reports-table-container">
+                <p style="color: #64748b;">Loading full reports database...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

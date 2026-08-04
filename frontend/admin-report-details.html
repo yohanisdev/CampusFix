@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusFix — Admin Report Controls</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar" style="background-color: #1e293b; border-bottom: 3px solid #38bdf8;">
+        <a href="admin-dashboard.html" class="brand">🛠️ CampusFix <span style="font-size: 0.8rem; color: #ef4444; border: 1px solid #ef4444; padding: 0.1rem 0.4rem; border-radius: 4px; margin-left: 0.5rem;">ADMIN</span></a>
+        <div class="user-info">
+            <span id="user-display">Administrator</span>
+            <a href="admin-dashboard.html" style="color: #cbd5e1; text-decoration: none;">Overview</a>
+            <a href="admin-reports.html" style="color: #cbd5e1; text-decoration: none;">Manage Reports</a>
+            <button onclick="logout()" class="btn-logout">Logout</button>
+        </div>
+    </nav>
+
+    <div class="container" style="max-width: 850px;">
+        <a href="admin-reports.html" style="display: inline-block; margin-bottom: 1rem; color: #2563eb; text-decoration: none; font-weight: 600;">← Back to All Reports</a>
+
+        <div id="alert-box" style="display: none; padding: 0.8rem; border-radius: 6px; margin-bottom: 1rem; font-size: 0.9rem;"></div>
+        
+        <div class="card" id="details-container">
+            <p style="color: #64748b;">Loading administrative view...</p>
+        </div>
+
+        <!-- Admin Actions Card -->
+        <div class="card" id="actions-card" style="display: none;">
+            <h3 style="margin-bottom: 1rem; color: #0f172a;">Update Resolution Status & Priority</h3>
+            
+            <form id="admin-update-form">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.2rem;">
+                    <div class="form-group">
+                        <label for="update-status">Resolution Status</label>
+                        <select id="update-status" style="font-weight: 600;">
+                            <option value="PENDING">PENDING</option>
+                            <option value="IN_PROGRESS">IN PROGRESS</option>
+                            <option value="RESOLVED">RESOLVED</option>
+                            <option value="REJECTED">REJECTED</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="update-priority">Override Priority Level</label>
+                        <select id="update-priority" style="font-weight: 600;">
+                            <option value="LOW">LOW</option>
+                            <option value="MEDIUM">MEDIUM</option>
+                            <option value="HIGH">HIGH</option>
+                            <option value="CRITICAL">CRITICAL</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="admin-notes">Official Resolution / Action Note</label>
+                    <textarea id="admin-notes" rows="4" placeholder="e.g. Electrician dispatched. Replaced faulty circuit breaker in Room 204."></textarea>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem;">
+                    <button type="submit" class="btn btn-primary" style="padding: 0.7rem 1.5rem;">Save Administrative Changes</button>
+                    <button type="button" id="btn-delete-report" style="background-color: #ef4444; color: #ffffff; border: none; padding: 0.7rem 1.2rem; border-radius: 6px; font-weight: 600; cursor: pointer;">Delete Spam Report</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusFix — Report Details</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="student-dashboard.html" class="brand">🛠️ CampusFix</a>
+        <div class="user-info">
+            <span id="user-display">Student</span>
+            <a href="student-dashboard.html" style="color: #cbd5e1; text-decoration: none;">Dashboard</a>
+            <a href="my-reports.html" style="color: #cbd5e1; text-decoration: none;">My Reports</a>
+            <button onclick="logout()" class="btn-logout">Logout</button>
+        </div>
+    </nav>
+
+    <div class="container" style="max-width: 800px;">
+        <a href="my-reports.html" style="display: inline-block; margin-bottom: 1rem; color: #2563eb; text-decoration: none; font-weight: 600;">← Back to My Reports</a>
+        
+        <div class="card" id="details-container">
+            <p style="color: #64748b;">Loading report details...</p>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/student.js"></script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusFix — Student Registration</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="brand">🛠️ CampusFix</a>
+        <div class="nav-links">
+            <a href="login.html">Login</a>
+            <a href="register.html">Register</a>
+        </div>
+    </nav>
+
+    <div class="container" style="max-width: 450px; margin-top: 3rem;">
+        <div class="card">
+            <h2 style="margin-bottom: 1.5rem; text-align: center;">Register Account</h2>
+            
+            <div id="error-message" style="display: none; background-color: #fecaca; color: #991b1b; padding: 0.8rem; border-radius: 6px; margin-bottom: 1rem; font-size: 0.9rem;"></div>
+            <div id="success-message" style="display: none; background-color: #bbf7d0; color: #166534; padding: 0.8rem; border-radius: 6px; margin-bottom: 1rem; font-size: 0.9rem;"></div>
+
+            <form id="register-form">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" placeholder="e.g. Abebe Bikila" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Campus Email</label>
+                    <input type="email" id="email" placeholder="student@campus.edu" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="At least 6 characters" required minlength="6">
+                </div>
+
+                <div class="form-group">
+                    <label for="role">Account Type</label>
+                    <select id="role">
+                        <option value="STUDENT">Student</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">Create Account</button>
+            </form>
+
+            <p style="text-align: center; margin-top: 1.5rem; font-size: 0.9rem; color: #64748b;">
+                Already have an account? <a href="login.html" style="color: #2563eb;">Log in here</a>
+            </p>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>
