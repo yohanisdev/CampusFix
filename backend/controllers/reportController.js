@@ -21,10 +21,10 @@ const calculateSmartPriority = (category, title, description) => {
     return 'MEDIUM'; // Default baseline
 };
 
-// 1. Create a New Problem Report
+// 1. Create a New Problem Report (CREATE)
 const createReport = async (req, res) => {
     const { title, description, category, location, priority, image_url } = req.body;
-    const userId = req.user.id; // Extracted from JWT token via authMiddleware
+    const userId = req.user.id;
 
     if (!title || !description || !category || !location) {
         return res.status(400).json({
@@ -33,7 +33,6 @@ const createReport = async (req, res) => {
         });
     }
 
-    // Use priority supplied by user/UI; fallback to smart priority engine if missing
     const finalPriority = priority || calculateSmartPriority(category, title, description);
 
     try {
@@ -65,7 +64,7 @@ const createReport = async (req, res) => {
     }
 };
 
-// 2. Get All Reports Submitted by Logged-in Student
+// 2. Get All Reports Submitted by Logged-in Student (READ)
 const getMyReports = async (req, res) => {
     const userId = req.user.id;
 
@@ -89,10 +88,11 @@ const getMyReports = async (req, res) => {
     }
 };
 
-// 3. Get Single Report by ID (Owner Access & Admin Access)
+// 3. Get Single Report by ID (READ)
 const getReportById = async (req, res) => {
     const reportId = req.params.id;
     const userId = req.user.id;
+    const userRole = req.user.role;
 
     try {
         const queryText = `
@@ -110,7 +110,7 @@ const getReportById = async (req, res) => {
         const report = result.rows[0];
 
         // Access Control: Non-admins can only view their own reports
-        if (report.user_id !== userId && req.user.role !== 'ADMIN') {
+        if (report.user_id !== userId && userRole !== 'ADMIN') {
             return res.status(403).json({ status: 'ERROR', message: 'Access denied to this report.' });
         }
 
@@ -124,10 +124,11 @@ const getReportById = async (req, res) => {
     }
 };
 
-// 4. Update Report (Student can edit only while status is PENDING)
+// 4. Update Report (UPDATE)
 const updateReport = async (req, res) => {
     const reportId = req.params.id;
     const userId = req.user.id;
+    const userRole = req.user.role;
     const { title, description, category, location, priority, image_url } = req.body;
 
     try {
@@ -140,18 +141,20 @@ const updateReport = async (req, res) => {
 
         const existingReport = checkResult.rows[0];
 
-        if (existingReport.user_id !== userId) {
-            return res.status(403).json({ status: 'ERROR', message: 'Unauthorized to modify this report.' });
+        // Students can only update their own reports while PENDING. Admins bypass this.
+        if (userRole !== 'ADMIN') {
+            if (existingReport.user_id !== userId) {
+                return res.status(403).json({ status: 'ERROR', message: 'Unauthorized to modify this report.' });
+            }
+
+            if (existingReport.status !== 'PENDING') {
+                return res.status(400).json({ 
+                    status: 'ERROR', 
+                    message: 'Report cannot be modified once it is in progress or resolved.' 
+                });
+            }
         }
 
-        if (existingReport.status !== 'PENDING') {
-            return res.status(400).json({ 
-                status: 'ERROR', 
-                message: 'Report cannot be modified once it is in progress or resolved.' 
-            });
-        }
-
-        // Keep explicit priority if provided; fallback to recalculated priority if category/title changed
         const finalPriority = priority || calculateSmartPriority(
             category || existingReport.category, 
             title || existingReport.title, 
@@ -166,10 +169,10 @@ const updateReport = async (req, res) => {
                 location = COALESCE($4, location),
                 priority = $5::report_priority,
                 image_url = COALESCE($6, image_url)
-            WHERE id = $7 AND user_id = $8
+            WHERE id = $7
             RETURNING *
         `;
-        const values = [title, description, category, location, finalPriority, image_url, reportId, userId];
+        const values = [title, description, category, location, finalPriority, image_url, reportId];
         const updatedResult = await db.query(updateQuery, values);
 
         res.status(200).json({
@@ -183,10 +186,11 @@ const updateReport = async (req, res) => {
     }
 };
 
-// 5. Delete Report (Student can cancel only while status is PENDING)
+// 5. Delete Report (DELETE - Fixed for Admin Access)
 const deleteReport = async (req, res) => {
     const reportId = req.params.id;
     const userId = req.user.id;
+    const userRole = req.user.role;
 
     try {
         const checkResult = await db.query('SELECT * FROM reports WHERE id = $1', [reportId]);
@@ -197,22 +201,27 @@ const deleteReport = async (req, res) => {
 
         const report = checkResult.rows[0];
 
-        if (report.user_id !== userId) {
-            return res.status(403).json({ status: 'ERROR', message: 'Unauthorized to delete this report.' });
-        }
+        // Authorization Check:
+        // - Admins (role === 'ADMIN') can delete ANY report regardless of status or owner.
+        // - Students can ONLY delete their OWN report if it is still 'PENDING'.
+        if (userRole !== 'ADMIN') {
+            if (report.user_id !== userId) {
+                return res.status(403).json({ status: 'ERROR', message: 'Unauthorized to delete this report.' });
+            }
 
-        if (report.status !== 'PENDING') {
-            return res.status(400).json({ 
-                status: 'ERROR', 
-                message: 'Cannot delete a report that is already under review or resolved.' 
-            });
+            if (report.status !== 'PENDING') {
+                return res.status(400).json({ 
+                    status: 'ERROR', 
+                    message: 'Cannot delete a report that is already under review or resolved.' 
+                });
+            }
         }
 
         await db.query('DELETE FROM reports WHERE id = $1', [reportId]);
 
         res.status(200).json({
             status: 'SUCCESS',
-            message: 'Report cancelled and deleted successfully.'
+            message: 'Report deleted successfully.'
         });
     } catch (err) {
         console.error('[DELETE REPORT ERROR]', err);
