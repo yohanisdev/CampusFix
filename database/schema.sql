@@ -1,11 +1,6 @@
 -- CampusFix PostgreSQL Database Schema Definition
 
--- Drop existing tables if re-executing schema setup
-DROP TABLE IF EXISTS reports CASCADE;
-DROP TABLE IF EXISTS users CASCADE;
-DROP TYPE IF EXISTS user_role CASCADE;
-DROP TYPE IF EXISTS report_priority CASCADE;
-DROP TYPE IF EXISTS report_status CASCADE;
+
 
 -- Create ENUM types for strict data validation
 CREATE TYPE user_role AS ENUM ('STUDENT', 'ADMIN');
