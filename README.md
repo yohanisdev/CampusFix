@@ -1,1 +1,1 @@
-campus fix is web desighned for solving the problem observed in campus
+campus fix is web desighned for solving the problem observed in campus. have look at it
