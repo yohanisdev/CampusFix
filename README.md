@@ -1,1 +1,3 @@
 campus fix is web desighned for solving the problem observed in campus. have look at it. we can report the problems in these platform, then faccility addministers determine the problem and then give solution for it.
+user of these platform.   student: *they report problem*
+admin of platform,    facility addminsters: *they view reported issues*
