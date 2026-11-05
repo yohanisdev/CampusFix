@@ -1,1 +1,1 @@
-campus fix is web desighned for solving the problem observed in campus. have look at it
+campus fix is web desighned for solving the problem observed in campus. have look at it. we can report the problems in these platform, then faccility addministers determine the problem and then give solution for it.
